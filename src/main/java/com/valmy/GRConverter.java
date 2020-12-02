@@ -30,13 +30,12 @@ public class GRConverter {
      * @return the corresponding Republican date.
      */
     public RDate convert(LocalDate date) {
-        logger.info("=== CONVERTING {} ===", date);
+        logger.debug("=== CONVERTING {} ===", date);
 
         // YEAR.
         int ryear = date.getYear() - START_YEAR;
         // Default starting date of the Republican year.
         LocalDate start = getRepublicanYearStartDay(date);
-
         if (date.isBefore(start)) {
             // Compute start on previous Gregorian year.
             logger.debug("{} is before start {}", date, start);
@@ -45,14 +44,10 @@ public class GRConverter {
             logger.debug("{} is after start {}", date, start);
             ryear++;
         }
-        logger.info("For {}, Ryear={} starting on {}", date, ryear, start);
 
-
-        // Temporary Republican date.
         int daysSinceStartYear = (int) DAYS.between(start, date);
-        logger.info("{} days between {} and {}", daysSinceStartYear, start, date);
 
-        // Create final Republican date.
+        // Create Republican date.
         int months = daysSinceStartYear / 30; // each Republican month last 30 days.
         RMonth rmonth = RMonth.values()[months];
         int rday = 1 + daysSinceStartYear % 30; // Add one since we count days from 1, not 0.
