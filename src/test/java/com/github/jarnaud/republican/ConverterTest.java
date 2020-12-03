@@ -32,7 +32,7 @@ public class ConverterTest {
     }
 
     @Test
-    public void testMultYearsPost1800() {
+    public void testSextileYearsPost1800() {
         compare(12, RMonth.Vendemiaire, 1, 1803, 9, 24);
         compare(16, RMonth.Vendemiaire, 1, 1807, 9, 24);
         compare(20, RMonth.Vendemiaire, 1, 1811, 9, 23);

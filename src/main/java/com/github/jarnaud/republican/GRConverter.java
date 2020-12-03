@@ -25,23 +25,23 @@ public class GRConverter {
      * @return the corresponding Republican date.
      */
     public RDate convert(LocalDate date) {
-        int ryear = date.getYear() - START_YEAR;
+        int rYear = date.getYear() - START_YEAR;
         // Default starting date of the Republican year.
         LocalDate start = getRepublicanYearStartDay(date);
         if (date.isBefore(start)) {
             // Compute start on previous Gregorian year.
             start = getRepublicanYearStartDay(start.minusYears(1));
         } else {
-            ryear++;
+            rYear++;
         }
 
         int daysSinceStartYear = (int) DAYS.between(start, date);
 
         // Create Republican date.
         int months = daysSinceStartYear / 30; // each Republican month last 30 days.
-        RMonth rmonth = RMonth.values()[months];
-        int rday = 1 + daysSinceStartYear % 30; // Add one since we count days from 1, not 0.
-        return RDate.of(ryear, rmonth, rday);
+        RMonth rMonth = RMonth.values()[months];
+        int rDay = 1 + daysSinceStartYear % 30; // Add one since we count days from 1, not 0.
+        return RDate.of(rYear, rMonth, rDay);
     }
 
     /**

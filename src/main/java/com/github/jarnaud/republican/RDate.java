@@ -25,6 +25,14 @@ public final class RDate implements Comparable<RDate> {
         return 3;
     }
 
+    /**
+     * Construct a new Republican date.
+     *
+     * @param year  the Republican year (eg. An XII).
+     * @param month the Republican month.
+     * @param day   the Republican day in the month.
+     * @return the Republican date.
+     */
     public static RDate of(int year, RMonth month, int day) {
         return new RDate(year, month, day);
     }
@@ -101,4 +109,17 @@ public final class RDate implements Comparable<RDate> {
         if (month.ordinal() != date.getMonth().ordinal()) return month.ordinal() < date.getMonth().ordinal();
         return day < date.getDay();
     }
+
+    /**
+     * Return true if the given year is sextile, false otherwise.
+     *
+     * @return true if year is sextile, false otherwise.
+     */
+    public boolean isSextile() {
+        if (year == 3 || year == 7 || year == 11 || year == 15) {
+            return true;
+        }
+        return year >= 20 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    }
+
 }

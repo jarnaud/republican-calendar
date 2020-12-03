@@ -5,7 +5,7 @@ package com.github.jarnaud.republican;
  */
 public enum RMonth {
 
-    // Automn.
+    // Autumn.
     Vendemiaire(1, "Vendemiaire"),
     Brumaire(2, "Brumaire"),
     Frimaire(3, "Frimaire"),

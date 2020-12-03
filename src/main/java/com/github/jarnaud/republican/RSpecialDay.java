@@ -1,15 +1,15 @@
 package com.github.jarnaud.republican;
 
 /**
- * Republican special days (Sansculottide)
+ * Republican special days (Sanculottide)
  * <p>
- * 5 days at the end of the year, 6 days every 4 years.
+ * 5 days at the end of the year, 6 days during sextile years.
  */
 public enum RSpecialDay {
-    Virtue, // 17 sept.
-    Genius, // 18 sept.
-    Work, // 19 sept.
+    Vertu, // 17 sept.
+    Genie, // 18 sept.
+    Travail, // 19 sept.
     Opinion, // 20 sept.
-    Recompense, // 21 sept.
+    Recompenses, // 21 sept.
     Revolution // 22 sept. bis, occurs once every 4 years.
 }

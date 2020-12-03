@@ -1,3 +1,5 @@
+[![master-build Actions Status](https://github.com/jarnaud/republican-calendar/workflows/master-build/badge.svg)](https://github.com/jarnaud/republican-calendar/actions)
+
 # Republican calendar
 
 The :fr: Republican calendar was created during the Revolution to remove all

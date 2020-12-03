@@ -18,18 +18,18 @@ public class RGConverter {
     /**
      * Convert a Republican date into a local date.
      *
-     * @param rdate the Republican date.
+     * @param rDate the Republican date.
      * @return the corresponding local date.
      */
-    public LocalDate convert(RDate rdate) {
+    public LocalDate convert(RDate rDate) {
         final int deltaDays;
-        RDate start = getGregorianYearStartDay(rdate.getYear());
-        if (rdate.isBefore(start)) {
-            deltaDays = -getDaysBetween(rdate, start);
+        RDate start = getGregorianYearStartDay(rDate.getYear());
+        if (rDate.isBefore(start)) {
+            deltaDays = -getDaysBetween(rDate, start);
         } else {
-            deltaDays = getDaysBetween(start, rdate);
+            deltaDays = getDaysBetween(start, rDate);
         }
-        return LocalDate.of(START_YEAR + rdate.getYear(), Month.JANUARY, 1).plusDays(deltaDays);
+        return LocalDate.of(START_YEAR + rDate.getYear(), Month.JANUARY, 1).plusDays(deltaDays);
     }
 
     /**
@@ -52,12 +52,12 @@ public class RGConverter {
      * Return Jan 1st for the year of the provided Republican date.
      * Will return 10, 11 or 12 Nivose depending on the year.
      *
-     * @param ryear the Republican year.
+     * @param rYear the Republican year.
      * @return the first day of the Gregorian year as a Republican date.
      */
-    private RDate getGregorianYearStartDay(int ryear) {
-        RDate start = RDate.of(ryear, RMonth.Nivose, 12);
-        return start.plusDays(processShifts(ryear - 1));
+    private RDate getGregorianYearStartDay(int rYear) {
+        RDate start = RDate.of(rYear, RMonth.Nivose, 12);
+        return start.plusDays(processShifts(rYear - 1));
     }
 
     /**
