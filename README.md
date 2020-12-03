@@ -8,8 +8,11 @@ It was officially used between 1793 and 1805 in France.
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Calendrier-republicain-debucourt2.jpg/800px-Calendrier-republicain-debucourt2.jpg" alt="drawing" width="200"/>
 
 This library allows easy conversion between Gregorian and Republican dates.
+It can be used for dates after 1805 (see details about non-historical periods below).
 
-### Usage
+## Usage
+
+### Dependency
 
 With Maven, add to your dependencies:
 
@@ -27,12 +30,13 @@ With SBT:
 libraryDependencies += "com.github.jarnaud" % "republican-calendar" % "1.0"
 ```
 
-### Usage
+### Quickstart
 
-Create a `GRConverter` to convert from Gregorian to Republican dates.
+- Create a `GRConverter` and call `convert(..)` to convert from Gregorian to Republican dates.
+- Create a `RGConverter` and call `convert(..)` to convert from Republican to Gregorian dates.
 
 
-### Non-historical period
+## Non-historical periods
 
 The Republican calendar was used historically between 1791 and 1805.
 However, we can use this calendar for other dates, based on following rules:
@@ -40,7 +44,7 @@ However, we can use this calendar for other dates, based on following rules:
 - Dates before 1792-22-01 are not defined.
 - Dates after 1806-01-01 (end of Republican calendar) are estimated based on the commonly used Romme method.
 
-### Links and references
+## Links and references
 
 More about the Republican calendar (including current date): 
 https://en.wikipedia.org/wiki/French_Republican_calendar
