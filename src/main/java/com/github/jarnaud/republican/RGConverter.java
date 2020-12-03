@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 /**
- * Converter Republican -> Gregorian.
+ * Converter from Republican to Gregorian dates.
  */
 public class RGConverter {
 

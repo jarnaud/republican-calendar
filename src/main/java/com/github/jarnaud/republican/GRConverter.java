@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * Converter Gregorian -> Republican.
+ * Converter from Gregorian to Republican dates.
  */
 public class GRConverter {
 
