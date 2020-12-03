@@ -1,4 +1,4 @@
-package com.valmy;
+package com.github.jarnaud;
 
 import org.junit.jupiter.api.Test;
 

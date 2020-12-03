@@ -1,4 +1,4 @@
-package com.valmy;
+package com.github.jarnaud;
 
 /**
  * Republican special days (Sansculottide)

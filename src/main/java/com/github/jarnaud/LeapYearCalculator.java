@@ -1,4 +1,4 @@
-package com.valmy;
+package com.github.jarnaud;
 
 /**
  * Process the number of leap years between the start of the Republican calendar and a given year.

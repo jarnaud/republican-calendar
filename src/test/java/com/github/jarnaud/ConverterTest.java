@@ -1,4 +1,4 @@
-package com.valmy;
+package com.github.jarnaud;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,9 +6,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GRConverterTest {
+/**
+ * Tests verifying conversion correctness and consistency by
+ * performing conversion in both direction (G->R and R->G) on a set of verified dates,
+ * including some historical dates.
+ */
+public class ConverterTest {
 
-    private final GRConverter converter = new GRConverter();
+    private final GRConverter grConverter = new GRConverter();
+    private final RGConverter rgConverter = new RGConverter();
 
     @Test
     public void testYearSimple() {
@@ -158,7 +164,7 @@ public class GRConverterTest {
     }
 
     /**
-     * Test the conversion of a Gregorian date into a Republican date.
+     * Test the conversion of a Gregorian date into a Republican date, and vice-versa.
      *
      * @param rYear  the Republican date year.
      * @param rMonth the Republican date month.
@@ -168,11 +174,15 @@ public class GRConverterTest {
      * @param gDay   the Gregorian date day.
      */
     private void compare(int rYear, RMonth rMonth, int rDay, int gYear, int gMonth, int gDay) {
-        assertEquals(RDate.of(
-                rYear, rMonth, 1, rDay // TODO decade not used yet.
-        ), converter.convert(LocalDate.of(
-                gYear, gMonth, gDay
-        )));
+        assertEquals(
+                RDate.of(rYear, rMonth, rDay),
+                grConverter.convert(LocalDate.of(gYear, gMonth, gDay))
+        );
+
+        assertEquals(
+                LocalDate.of(gYear, gMonth, gDay),
+                rgConverter.convert(RDate.of(rYear, rMonth, rDay))
+        );
     }
 
 }

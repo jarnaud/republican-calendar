@@ -1,4 +1,4 @@
-package com.valmy;
+package com.github.jarnaud;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class GRConverter {
         int months = daysSinceStartYear / 30; // each Republican month last 30 days.
         RMonth rmonth = RMonth.values()[months];
         int rday = 1 + daysSinceStartYear % 30; // Add one since we count days from 1, not 0.
-        return RDate.of(ryear, rmonth, 1, rday);
+        return RDate.of(ryear, rmonth, rday);
     }
 
     /**
