@@ -36,16 +36,28 @@ NB: To find the latest version, please refer to [Maven search](https://search.ma
 
 ### Quickstart
 
-- Create a `GRConverter` and call `convert(..)` to convert from Gregorian to Republican dates.
-- Create a `RGConverter` and call `convert(..)` to convert from Republican to Gregorian dates.
+- To convert a Gregorian (usual) date into a Republican date:
 
+```java
+GRConverter c = new GRConverter();
+LocalDate date = LocalDate.of(1792, 9, 22);
+RDate rDate = c.convert(date);
+```
+
+- To convert a Republican date into a Gregorian date:
+
+```java
+RGConverter c = new RGConverter();
+RDate rDate = RDate.of(1, RMonth.Vendemiaire, 1);
+LocalDate date = c.convert(rDate);
+```
 
 ## Non-historical periods
 
 The Republican calendar was used historically between 1791 and 1805.
 However, we can use this calendar for other dates, based on following rules:
 
-- Dates before 1792-22-01 are not defined.
+- Dates before 1792-09-22 (first day of Republican calendar) are not defined.
 - Dates after 1806-01-01 (end of Republican calendar) are estimated based on the commonly used Romme method.
 
 ## Links and references
