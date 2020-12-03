@@ -1,4 +1,4 @@
-package com.github.jarnaud;
+package com.github.jarnaud.republican;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

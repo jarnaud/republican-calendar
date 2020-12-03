@@ -1,4 +1,4 @@
-package com.github.jarnaud;
+package com.github.jarnaud.republican;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +73,7 @@ public class RGConverter {
     }
 
     /**
-     * Process the leap years difference between Republican and Gregorian on a given year.
+     * Process the leap years difference between Gregorian and Republican on a given year.
      *
      * @param ryear the Republican year.
      * @return the leap delta.
