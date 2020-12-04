@@ -1,12 +1,14 @@
 package com.github.jarnaud.republican;
 
 import java.time.LocalDate;
+import java.time.Year;
+import java.time.temporal.*;
 import java.util.Objects;
 
 /**
  * A Republican local date.
  */
-public final class RDate implements Comparable<RDate> {
+public final class RDate implements Comparable<RDate>, TemporalAccessor {
 
     /**
      * The first day in the Republican calendar (corresponding Republican day would be An 1 Vendemiaire 1).
@@ -76,6 +78,14 @@ public final class RDate implements Comparable<RDate> {
         return month;
     }
 
+    /**
+     * Return the decade of this date.
+     * In the Republican calendar, a decade is a 10 days period within a month (each month being composed of 3 decades).
+     * <p>
+     * This is NOT a 10 year period!
+     *
+     * @return the decade (1, 2 or 3).
+     */
     public int getDecade() {
         return decade;
     }
@@ -122,6 +132,12 @@ public final class RDate implements Comparable<RDate> {
         return Objects.hash(year, month, decade, day);
     }
 
+    /**
+     * Return true if the given date is strictly before this date.
+     *
+     * @param date the date.
+     * @return true if date is before this date, false otherwise.
+     */
     public boolean isBefore(RDate date) {
         if (year != date.getYear()) return year < date.getYear();
         if (month.ordinal() != date.getMonth().ordinal()) return month.ordinal() < date.getMonth().ordinal();
@@ -156,6 +172,55 @@ public final class RDate implements Comparable<RDate> {
             throw new RuntimeException("Date " + gregorianDate + " is undefined in the Republican calendar.");
         }
         return new GRConverter().convert(gregorianDate);
+    }
+
+
+    // Temporal accessor implementation.
+
+    @Override
+    public boolean isSupported(TemporalField field) {
+        if (field instanceof ChronoField) {
+            switch ((ChronoField) field) {
+                case DAY_OF_MONTH:
+                case MONTH_OF_YEAR:
+                case YEAR:
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public ValueRange range(TemporalField field) {
+        if (field instanceof ChronoField) {
+            if (isSupported(field)) {
+                ChronoField f = (ChronoField) field;
+                switch (f) {
+                    case DAY_OF_MONTH:
+                        return ValueRange.of(1, 30);
+                    case MONTH_OF_YEAR:
+                        return ValueRange.of(1, 13);
+                    case YEAR:
+                        return ValueRange.of(1, Year.MAX_VALUE);
+                }
+            }
+        }
+        throw new UnsupportedTemporalTypeException("Unsupported field: " + field);
+    }
+
+    @Override
+    public long getLong(TemporalField field) {
+        if (field instanceof ChronoField) {
+            switch ((ChronoField) field) {
+                case DAY_OF_MONTH:
+                    return getDay();
+                case MONTH_OF_YEAR:
+                    return getMonth().ordinal() + 1;
+                case YEAR:
+                    return getYear();
+            }
+        }
+        throw new UnsupportedTemporalTypeException("Unsupported field: " + field);
     }
 
 }

@@ -58,7 +58,16 @@ public class RDateTest {
     }
 
     @Test
-    public void testPlusDays() {
+    public void testPlusDays_success() {
         assertEquals(RDate.of(1, 1, 1), RDate.of(1, 1, 1).plusDays(0));
+        assertEquals(RDate.of(1, 1, 2), RDate.of(1, 1, 1).plusDays(1));
+        assertEquals(RDate.of(1, 8, 1), RDate.of(1, 1, 1).plusDays(7 * 30));
+        assertEquals(RDate.of(2, 1, 1), RDate.of(1, 1, 1).plusDays(365));
     }
+
+    @Test
+    public void testPlusDays_invalid() {
+        assertThrows(RuntimeException.class, () -> RDate.of(1, 1, 1).plusDays(-1));
+    }
+
 }
