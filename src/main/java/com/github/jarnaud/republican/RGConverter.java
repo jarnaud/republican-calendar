@@ -57,7 +57,19 @@ public class RGConverter {
      */
     private RDate getGregorianYearStartDay(int rYear) {
         RDate start = RDate.of(rYear, RMonth.Nivose, 12);
-        return start.plusDays(processShifts(rYear - 1));
+        return plusDays(start, processShifts(rYear - 1));
+    }
+
+    /**
+     * Return a copy of this date shifted by the given number of days.
+     * NB: used only by this converter for shifting by 1 or 2 days within a month (month/year shifts are not handled).
+     * Do not use as actual plus to add days on production dates
+     *
+     * @param daysToAdd the number of days to add.
+     * @return the new date.
+     */
+    private RDate plusDays(RDate date, int daysToAdd) {
+        return RDate.of(date.getYear(), date.getMonth(), date.getDay() + daysToAdd);
     }
 
     /**

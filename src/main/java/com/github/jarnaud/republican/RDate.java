@@ -1,11 +1,18 @@
 package com.github.jarnaud.republican;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * A Republican local date.
  */
 public final class RDate implements Comparable<RDate> {
+
+    /**
+     * The first day in the Republican calendar (corresponding Republican day would be An 1 Vendemiaire 1).
+     * Dates before this date are undefined in the Republican calendar.
+     */
+    public static final LocalDate FIRST_DAY = LocalDate.of(1792, 9, 22);
 
     private final int year;
     private final RMonth month;
@@ -30,11 +37,35 @@ public final class RDate implements Comparable<RDate> {
      *
      * @param year  the Republican year (eg. An XII).
      * @param month the Republican month.
-     * @param day   the Republican day in the month.
+     * @param day   the Republican day in the month, must be:
+     *              - between 1 and 30 for normal months.
+     *              - between 1 and 5 for Sanculottide on normal years.
+     *              - between 1 and 6 for Sanculottide on sextile years.
      * @return the Republican date.
      */
     public static RDate of(int year, RMonth month, int day) {
+        if (year < 1 || month == null || day < 1 || day > 30 || (month == RMonth.Sanculottide && day > 6)) {
+            throw new RuntimeException("Invalid parameters for building Republican date");
+        }
         return new RDate(year, month, day);
+    }
+
+    /**
+     * Construct a new Republican date.
+     *
+     * @param year  the Republican year (eg. An XII).
+     * @param month the Republican month number, between 1 (for Vendemiaire) and 13 (for Sanculottide).
+     * @param day   the Republican day in the month, must be:
+     *              - between 1 and 30 for normal months.
+     *              - between 1 and 5 for Sanculottide on normal years.
+     *              - between 1 and 6 for Sanculottide on sextile years.
+     * @return the Republican date.
+     */
+    public static RDate of(int year, int month, int day) {
+        if (year < 1 || month < 1 || month > 13 || day < 1 || day > 30 || (month == 13 && day > 6)) {
+            throw new RuntimeException("Invalid parameters for building Republican date");
+        }
+        return new RDate(year, RMonth.values()[month - 1], day);
     }
 
     public int getYear() {
@@ -91,19 +122,6 @@ public final class RDate implements Comparable<RDate> {
         return Objects.hash(year, month, decade, day);
     }
 
-    /**
-     * Return a copy of this date shifted by the given number of days.
-     * <p>
-     * TODO used by converter for shifting by 1 or 2 days within a month,
-     * TODO will need to handle month/year shift before being made public.
-     *
-     * @param daysToAdd the number of days to add.
-     * @return the new date.
-     */
-    RDate plusDays(int daysToAdd) {
-        return RDate.of(this.getYear(), this.getMonth(), this.getDay() + daysToAdd);
-    }
-
     public boolean isBefore(RDate date) {
         if (year != date.getYear()) return year < date.getYear();
         if (month.ordinal() != date.getMonth().ordinal()) return month.ordinal() < date.getMonth().ordinal();
@@ -120,6 +138,24 @@ public final class RDate implements Comparable<RDate> {
             return true;
         }
         return year >= 20 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    }
+
+    /**
+     * Return a copy of this date shifted by the given number of days.
+     * Cannot go back before the first day of the Republican calendar (1792-09-22).
+     * <p>
+     * Uses converters to go through LocalDate implementation of plusDays.
+     *
+     * @param daysToAdd the number of days to add.
+     * @return the new date.
+     */
+    public RDate plusDays(int daysToAdd) {
+        LocalDate gregorianDate = new RGConverter().convert(this);
+        gregorianDate = gregorianDate.plusDays(daysToAdd);
+        if (gregorianDate.isBefore(FIRST_DAY)) {
+            throw new RuntimeException("Date " + gregorianDate + " is undefined in the Republican calendar.");
+        }
+        return new GRConverter().convert(gregorianDate);
     }
 
 }
