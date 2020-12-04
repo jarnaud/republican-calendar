@@ -1,12 +1,16 @@
 package com.github.jarnaud.republican;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalField;
+import java.time.temporal.UnsupportedTemporalTypeException;
 import java.util.Objects;
 
 /**
  * A Republican local date.
  */
-public final class RDate implements Comparable<RDate> {
+public final class RDate implements Comparable<RDate>, TemporalAccessor {
 
     /**
      * The first day in the Republican calendar (corresponding Republican day would be An 1 Vendemiaire 1).
@@ -157,5 +161,37 @@ public final class RDate implements Comparable<RDate> {
         }
         return new GRConverter().convert(gregorianDate);
     }
+
+
+    // Temporal accessor implementation.
+
+    @Override
+    public boolean isSupported(TemporalField field) {
+        if (field instanceof ChronoField) {
+            switch ((ChronoField) field) {
+                case DAY_OF_MONTH:
+                case MONTH_OF_YEAR:
+                case YEAR:
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public long getLong(TemporalField field) {
+        if (field instanceof ChronoField) {
+            switch ((ChronoField) field) {
+                case DAY_OF_MONTH:
+                    return getDay();
+                case MONTH_OF_YEAR:
+                    return getMonth().ordinal() + 1;
+                case YEAR:
+                    return getYear();
+            }
+        }
+        throw new UnsupportedTemporalTypeException("Unsupported field: " + field);
+    }
+
 
 }
