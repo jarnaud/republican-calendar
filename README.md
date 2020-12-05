@@ -52,6 +52,9 @@ RDate rDate = RDate.of(1, RMonth.Vendemiaire, 1);
 LocalDate date = c.convert(rDate);
 ```
 
+- `RDate` represents a Republican date and provides some utility methods:
+`isBefore(RDate)`, `isSextile()`, `plusDays(int)`.
+
 ## Non-historical periods
 
 The Republican calendar was used historically between 1791 and 1805.

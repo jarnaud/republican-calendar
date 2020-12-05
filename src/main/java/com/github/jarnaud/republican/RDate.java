@@ -174,7 +174,6 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
         return new GRConverter().convert(gregorianDate);
     }
 
-
     // Temporal accessor implementation.
 
     @Override
