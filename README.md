@@ -22,14 +22,14 @@ With Maven, add to your dependencies:
 <dependency>
     <groupId>com.github.jarnaud</groupId>
     <artifactId>republican-calendar</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
 
 With SBT:
 
 ```sbt
-libraryDependencies += "com.github.jarnaud" % "republican-calendar" % "1.1"
+libraryDependencies += "com.github.jarnaud" % "republican-calendar" % "1.2"
 ```
 
 NB: To find the latest version, please refer to [Maven search](https://search.maven.org/artifact/com.github.jarnaud/republican-calendar).
