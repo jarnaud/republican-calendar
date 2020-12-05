@@ -36,20 +36,18 @@ NB: To find the latest version, please refer to [Maven search](https://search.ma
 
 ### Quickstart
 
-- To convert a Gregorian (usual) date into a Republican date:
+- To convert a Gregorian local date into a Republican date:
 
 ```java
-GRConverter c = new GRConverter();
 LocalDate date = LocalDate.of(1792, 9, 22);
-RDate rDate = c.convert(date);
+RDate rDate = RDate.of(localDate);
 ```
 
 - To convert a Republican date into a Gregorian date:
 
 ```java
-RGConverter c = new RGConverter();
 RDate rDate = RDate.of(1, RMonth.Vendemiaire, 1);
-LocalDate date = c.convert(rDate);
+LocalDate date = c.toLocalDate();
 ```
 
 - `RDate` represents a Republican date and provides some utility methods:

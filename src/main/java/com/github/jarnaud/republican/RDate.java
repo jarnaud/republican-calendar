@@ -70,10 +70,31 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
         return new RDate(year, RMonth.values()[month - 1], day);
     }
 
+    /**
+     * Construct a new Republican date from a Gregorian date.
+     * Throws a RuntimeException if the given date is invalid (ie. before first day of Republican calendar).
+     *
+     * @param date the Gregorian date.
+     * @return the Republican date.
+     */
+    public static RDate of(LocalDate date) {
+        return new GRConverter().convert(date);
+    }
+
+    /**
+     * Return the Republican year for this date.
+     *
+     * @return the year.
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Return the Republican month for this date.
+     *
+     * @return the month.
+     */
     public RMonth getMonth() {
         return month;
     }
@@ -90,6 +111,11 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
         return decade;
     }
 
+    /**
+     * Return the day of the month of this date.
+     *
+     * @return the day of the month.
+     */
     public int getDay() {
         return day;
     }
@@ -130,6 +156,15 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
     @Override
     public int hashCode() {
         return Objects.hash(year, month, decade, day);
+    }
+
+    /**
+     * Convert this Republican date into a Gregorian local date.
+     *
+     * @return the local date.
+     */
+    public LocalDate toLocalDate() {
+        return new RGConverter().convert(this);
     }
 
     /**

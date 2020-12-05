@@ -6,7 +6,7 @@ import java.time.Month;
 /**
  * Converter from Republican to Gregorian dates.
  */
-public class RGConverter {
+class RGConverter {
 
     /**
      * Officially the Republican calendar started on 1792-09-22 (An I Vendemiaire 1).

@@ -39,7 +39,7 @@ public enum RMonth {
     /**
      * Return the month number (eg. 1 for Vendemiaire, 12 for Fructidor, 13 for Sanculottide...)
      *
-     * @return the month number.
+     * @return the month number, between 1 and 13.
      */
     public int getMonth() {
         return month;

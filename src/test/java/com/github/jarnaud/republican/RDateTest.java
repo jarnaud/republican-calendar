@@ -2,6 +2,8 @@ package com.github.jarnaud.republican;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RDateTest {
@@ -22,6 +24,12 @@ public class RDateTest {
     }
 
     @Test
+    public void testOf3() {
+        assertThrows(RuntimeException.class, () -> RDate.of(LocalDate.of(1650, 1, 1)));
+        // Normal cases are handled by the converter test.
+    }
+
+    @Test
     public void testDecade() {
         assertEquals(1, RDate.of(6, RMonth.Floreal, 1).getDecade());
         assertEquals(1, RDate.of(6, RMonth.Floreal, 4).getDecade());
@@ -32,6 +40,14 @@ public class RDateTest {
         assertEquals(3, RDate.of(6, RMonth.Floreal, 21).getDecade());
         assertEquals(3, RDate.of(6, RMonth.Floreal, 24).getDecade());
         assertEquals(3, RDate.of(6, RMonth.Floreal, 30).getDecade());
+    }
+
+    @Test
+    public void testEquals_symmetric() {
+        RDate rd1 = RDate.of(12, RMonth.Brumaire, 18);
+        RDate rd2 = RDate.of(12, 2, 18);
+        assertEquals(rd1, rd2);
+        assertEquals(rd2.hashCode(), rd1.hashCode());
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.github.jarnaud.republican;
 /**
  * Process the number of leap years between the start of the Republican calendar and a given year.
  */
-public class LeapYearCalculator {
+class LeapYearCalculator {
 
     private static final int START_REPUBLICAN_YEAR = 1792;
 

@@ -183,6 +183,19 @@ public class ConverterTest {
                 LocalDate.of(gYear, gMonth, gDay),
                 rgConverter.convert(RDate.of(rYear, rMonth, rDay))
         );
+
+        // Test RDate methods:
+
+        assertEquals(
+                RDate.of(rYear, rMonth, rDay),
+                RDate.of(LocalDate.of(gYear, gMonth, gDay))
+        );
+
+        assertEquals(
+                LocalDate.of(gYear, gMonth, gDay),
+                RDate.of(rYear, rMonth, rDay).toLocalDate()
+        );
+
     }
 
 }
