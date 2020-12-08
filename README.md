@@ -2,7 +2,7 @@
 
 # Republican calendar
 
-The :fr: Republican calendar was created during the Revolution to remove all
+The Republican calendar :fr: was created during the French Revolution to remove all
 religious and royalist references from the calendar. 
 This initiative was also part of a larger movement towards decimalisation.
 It was officially used between 1793 and 1805 in France.
