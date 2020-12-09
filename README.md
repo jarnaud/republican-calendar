@@ -66,6 +66,9 @@ However, we can use this calendar for other dates, based on following rules:
 More about the Republican calendar (including current date): 
 https://en.wikipedia.org/wiki/French_Republican_calendar
 
+More about the decimal time:
+https://en.wikipedia.org/wiki/Decimal_time
+
 **Note about online converters:**
 A lot of online converters are incorrect for dates outside the period of real historical
 usage of the Republican calendar, mostly due to improper handling of leap years.
