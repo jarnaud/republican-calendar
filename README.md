@@ -1,4 +1,5 @@
 [![master-build Actions Status](https://github.com/jarnaud/republican-calendar/workflows/master-build/badge.svg)](https://github.com/jarnaud/republican-calendar/actions)
+[![codecov](https://codecov.io/gh/jarnaud/republican-calendar/branch/master/graph/badge.svg)](https://codecov.io/gh/jarnaud/republican-calendar)
 
 # Republican calendar
 
