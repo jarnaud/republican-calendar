@@ -43,14 +43,6 @@ public class RDateTest {
     }
 
     @Test
-    public void testEquals_symmetric() {
-        RDate rd1 = RDate.of(12, RMonth.Brumaire, 18);
-        RDate rd2 = RDate.of(12, 2, 18);
-        assertEquals(rd1, rd2);
-        assertEquals(rd2.hashCode(), rd1.hashCode());
-    }
-
-    @Test
     public void testIsBefore() {
         RDate d1 = RDate.of(6, RMonth.Floreal, 4);
         RDate d2 = RDate.of(6, RMonth.Floreal, 5);
@@ -86,4 +78,26 @@ public class RDateTest {
         assertThrows(RuntimeException.class, () -> RDate.of(1, 1, 1).plusDays(-1));
     }
 
+    @Test
+    public void testCompareTo() {
+        RDate rd = RDate.of(12, RMonth.Brumaire, 18);
+        assertEquals(-1, rd.compareTo(null));
+        assertTrue(rd.compareTo(RDate.of(13, 2, 18)) < 0);
+        assertTrue(rd.compareTo(RDate.of(11, 2, 18)) > 0);
+        assertTrue(rd.compareTo(RDate.of(12, 3, 18)) < 0);
+        assertTrue(rd.compareTo(RDate.of(12, 1, 18)) > 0);
+        assertTrue(rd.compareTo(RDate.of(12, 2, 19)) < 0);
+        assertTrue(rd.compareTo(RDate.of(12, 2, 17)) > 0);
+        assertEquals(0, rd.compareTo(RDate.of(12, 2, 18)));
+    }
+
+    @Test
+    public void testEquals() {
+        RDate rd1 = RDate.of(12, RMonth.Brumaire, 18);
+        RDate rd2 = RDate.of(12, 2, 18);
+        assertEquals(rd1, rd2);
+        assertNotEquals(rd1, new Object());
+        assertNotEquals(rd1, null);
+        assertEquals(rd2.hashCode(), rd1.hashCode());
+    }
 }
