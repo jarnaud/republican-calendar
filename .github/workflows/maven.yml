@@ -21,9 +21,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Generate code coverage report
-      run: mvn cobertura:cobertura
+      run: mvn -B jacoco:prepare-agent package jacoco:report --file pom.xml
     - name: Upload code coverage report to codecov.io
       if: success()
       run: |
