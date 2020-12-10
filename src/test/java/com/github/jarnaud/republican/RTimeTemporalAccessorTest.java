@@ -2,8 +2,7 @@ package com.github.jarnaud.republican;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.temporal.UnsupportedTemporalTypeException;
-import java.time.temporal.ValueRange;
+import java.time.temporal.*;
 
 import static java.time.temporal.ChronoField.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,6 +28,7 @@ public class RTimeTemporalAccessorTest {
         RTime rt = RTime.of(5, 80, 20);
         assertThrows(UnsupportedTemporalTypeException.class, () -> rt.range(CLOCK_HOUR_OF_DAY));
         assertThrows(UnsupportedTemporalTypeException.class, () -> rt.range(ALIGNED_WEEK_OF_YEAR));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rt.range(new FakeTemporalField()));
     }
 
     @Test
@@ -46,5 +46,7 @@ public class RTimeTemporalAccessorTest {
         RTime rt = RTime.of(5, 80, 20, 1087);
         assertThrows(UnsupportedTemporalTypeException.class, () -> rt.getLong(CLOCK_HOUR_OF_DAY));
         assertThrows(UnsupportedTemporalTypeException.class, () -> rt.getLong(ALIGNED_WEEK_OF_YEAR));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rt.getLong(new FakeTemporalField()));
     }
+
 }

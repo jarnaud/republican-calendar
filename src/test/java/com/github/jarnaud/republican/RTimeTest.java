@@ -76,7 +76,7 @@ public class RTimeTest {
 
     @Test
     public void testCompareTo() {
-        RTime rt = RTime.of(8, 64, 80,1500);
+        RTime rt = RTime.of(8, 64, 80, 1500);
         assertEquals(-1, rt.compareTo(null));
         assertTrue(rt.compareTo(RTime.of(9, 63, 87)) < 0);
         assertTrue(rt.compareTo(RTime.of(5, 63, 87)) > 0);
@@ -84,8 +84,17 @@ public class RTimeTest {
         assertTrue(rt.compareTo(RTime.of(8, 13, 87)) > 0);
         assertTrue(rt.compareTo(RTime.of(8, 64, 87)) < 0);
         assertTrue(rt.compareTo(RTime.of(8, 64, 77)) > 0);
-        assertTrue(rt.compareTo(RTime.of(8, 64, 80,1501)) < 0);
-        assertTrue(rt.compareTo(RTime.of(8, 64, 80,1234)) > 0);
-        assertEquals(0,rt.compareTo(RTime.of(8,64,80,1500)));
+        assertTrue(rt.compareTo(RTime.of(8, 64, 80, 1501)) < 0);
+        assertTrue(rt.compareTo(RTime.of(8, 64, 80, 1234)) > 0);
+        assertEquals(0, rt.compareTo(RTime.of(8, 64, 80, 1500)));
+    }
+
+    @Test
+    public void testEquals() {
+        RTime rt = RTime.of(8, 64, 80, 1500);
+        assertEquals(rt, rt);
+        assertNotEquals(rt, null);
+        assertNotEquals(rt, new Object());
+        assertEquals(rt, RTime.of(8, 64, 80, 1500));
     }
 }

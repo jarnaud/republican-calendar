@@ -271,8 +271,7 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
     public ValueRange range(TemporalField field) {
         if (field instanceof ChronoField) {
             if (isSupported(field)) {
-                ChronoField f = (ChronoField) field;
-                switch (f) {
+                switch ((ChronoField) field) {
                     case NANO_OF_DAY:
                         return ValueRange.of(0, NANOS_PER_DAY - 1);
                     case NANO_OF_SECOND:

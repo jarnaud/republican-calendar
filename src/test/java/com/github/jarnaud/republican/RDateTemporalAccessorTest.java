@@ -24,8 +24,10 @@ public class RDateTemporalAccessorTest {
 
     @Test
     public void testRange_notSupported() {
-        assertThrows(UnsupportedTemporalTypeException.class, () -> RDate.of(6, RMonth.Floreal, 1).range(CLOCK_HOUR_OF_DAY));
-        assertThrows(UnsupportedTemporalTypeException.class, () -> RDate.of(6, RMonth.Floreal, 1).range(ALIGNED_WEEK_OF_YEAR));
+        RDate rDate = RDate.of(6, RMonth.Floreal, 1);
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.range(CLOCK_HOUR_OF_DAY));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.range(ALIGNED_WEEK_OF_YEAR));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.range(new FakeTemporalField()));
     }
 
     @Test
@@ -37,7 +39,9 @@ public class RDateTemporalAccessorTest {
 
     @Test
     public void testGetLong_notSupported() {
-        assertThrows(UnsupportedTemporalTypeException.class, () -> RDate.of(6, RMonth.Floreal, 1).getLong(CLOCK_HOUR_OF_DAY));
-        assertThrows(UnsupportedTemporalTypeException.class, () -> RDate.of(6, RMonth.Floreal, 1).getLong(ALIGNED_WEEK_OF_YEAR));
+        RDate rDate = RDate.of(6, RMonth.Floreal, 1);
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.getLong(CLOCK_HOUR_OF_DAY));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.getLong(ALIGNED_WEEK_OF_YEAR));
+        assertThrows(UnsupportedTemporalTypeException.class, () -> rDate.getLong(new FakeTemporalField()));
     }
 }

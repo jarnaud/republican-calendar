@@ -228,8 +228,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
     public ValueRange range(TemporalField field) {
         if (field instanceof ChronoField) {
             if (isSupported(field)) {
-                ChronoField f = (ChronoField) field;
-                switch (f) {
+                switch ((ChronoField) field) {
                     case DAY_OF_MONTH:
                         return ValueRange.of(1, 30);
                     case MONTH_OF_YEAR:
