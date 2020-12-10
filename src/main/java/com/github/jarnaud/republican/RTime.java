@@ -180,18 +180,38 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
         return String.format("%dh%dm%ds%d", hour, minute, second, nano);
     }
 
+    /**
+     * Return the hour of the day, between 0 and 9.
+     *
+     * @return the hour of the day.
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     * Return the minute of the hour, between 0 and 99.
+     *
+     * @return the minute of the hour.
+     */
     public int getMinute() {
         return minute;
     }
 
+    /**
+     * Return the second of the minute, between 0 and 99.
+     *
+     * @return the second of the minute.
+     */
     public int getSecond() {
         return second;
     }
 
+    /**
+     * Return the nanosecond of the second, betweem 0 and 999,999,999.
+     *
+     * @return the nanosecond of the second.
+     */
     public int getNano() {
         return nano;
     }
