@@ -35,10 +35,31 @@ public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
         return of(RDate.of(dateTime.toLocalDate()), RTime.of(dateTime.toLocalTime()));
     }
 
+    /**
+     * Obtains an instance of RDateTime from year, month, day, hour, and minute.
+     *
+     * @param year   the year.
+     * @param month  the Republican month.
+     * @param day    the day.
+     * @param hour   the hour.
+     * @param minute the minute.
+     * @return the Republican date time.
+     */
     public static RDateTime of(int year, RMonth month, int day, int hour, int minute) {
         return of(year, month, day, hour, minute, 0, 0);
     }
 
+    /**
+     * Obtains an instance of RDateTime from year, month, day, hour, minute, and second.
+     *
+     * @param year   the year.
+     * @param month  the Republican month.
+     * @param day    the day.
+     * @param hour   the hour.
+     * @param minute the minute.
+     * @param second the second.
+     * @return the Republican date time.
+     */
     public static RDateTime of(int year, RMonth month, int day, int hour, int minute, int second) {
         return of(year, month, day, hour, minute, second, 0);
     }
@@ -60,6 +81,13 @@ public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
         return of(RDate.of(year, month, day), RTime.of(hour, minute, second, nano));
     }
 
+    /**
+     * Obtains an instance of RDateTime from a Republican date and a Republican time.
+     *
+     * @param rDate the Republican date.
+     * @param rTime the Republican time.
+     * @return the Republican date time.
+     */
     public static RDateTime of(RDate rDate, RTime rTime) {
         if (rDate == null || rTime == null) {
             throw new RepublicanCalendarException("Missing date and/or time component.");
@@ -73,7 +101,7 @@ public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
      * @param date the Republican date.
      * @param time the Republican (decimal) time.
      */
-    public RDateTime(RDate date, RTime time) {
+    private RDateTime(RDate date, RTime time) {
         this.date = date;
         this.time = time;
     }
@@ -96,30 +124,65 @@ public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
         return of(date, time.roundSecond());
     }
 
+    /**
+     * Return the Republican year.
+     *
+     * @return the year.
+     */
     public int getYear() {
         return date.getYear();
     }
 
+    /**
+     * Return the Republican month.
+     *
+     * @return the month, between 1 and 13.
+     */
     public RMonth getMonth() {
         return date.getMonth();
     }
 
+    /**
+     * Return the day of month.
+     *
+     * @return the day, between 1 and 30.
+     */
     public int getDay() {
         return date.getDay();
     }
 
+    /**
+     * Return the hour of day.
+     *
+     * @return the hour, between 0 and 9.
+     */
     public int getHour() {
         return time.getHour();
     }
 
+    /**
+     * Return the minute of the hour.
+     *
+     * @return the minute, between 0 and 99.
+     */
     public int getMinute() {
         return time.getMinute();
     }
 
+    /**
+     * Return the second of the minute.
+     *
+     * @return the second, between 0 and 99.
+     */
     public int getSecond() {
         return time.getSecond();
     }
 
+    /**
+     * The nanosecond of the second.
+     *
+     * @return the nanosecond, between 0 and 999,999,999.
+     */
     public int getNano() {
         return time.getNano();
     }

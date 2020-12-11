@@ -5,6 +5,11 @@ package com.github.jarnaud.republican.exception;
  */
 public class RepublicanCalendarException extends RuntimeException {
 
+    /**
+     * Constructor.
+     *
+     * @param message the message.
+     */
     public RepublicanCalendarException(String message) {
         super(message);
     }

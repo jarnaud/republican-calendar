@@ -17,6 +17,10 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * Dates before this date are undefined in the Republican calendar.
      */
     public static final LocalDate FIRST_DAY = LocalDate.of(1792, 9, 22);
+
+    /**
+     * The first valid Republican date.
+     */
     public static final RDate MIN = of(FIRST_DAY);
 
     static final int DAYS_PER_MONTH = 30;
@@ -25,19 +29,6 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
     private final RMonth month;
     private final int decade;
     private final int day;
-
-    public RDate(int year, RMonth month, int day) {
-        this.year = year;
-        this.month = month;
-        this.decade = processDecade(day);
-        this.day = day;
-    }
-
-    private int processDecade(int day) {
-        if (day < 11) return 1;
-        if (day < 21) return 2;
-        return 3;
-    }
 
     /**
      * Construct a new Republican date.
@@ -98,6 +89,19 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      */
     public static RDate of(LocalDate date) {
         return new GRConverter().convert(date);
+    }
+
+    private RDate(int year, RMonth month, int day) {
+        this.year = year;
+        this.month = month;
+        this.decade = processDecade(day);
+        this.day = day;
+    }
+
+    private int processDecade(int day) {
+        if (day < 11) return 1;
+        if (day < 21) return 2;
+        return 3;
     }
 
     /**
@@ -207,6 +211,12 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
         return isSextileYear(year);
     }
 
+    /**
+     * Indicates if a Republican year is sextile nor not.
+     *
+     * @param year the Republican year.
+     * @return true if the year is sextile, false otherwise.
+     */
     public static boolean isSextileYear(int year) {
         if (year == 3 || year == 7 || year == 11 || year == 15) {
             return true;

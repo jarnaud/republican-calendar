@@ -28,7 +28,14 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
     static final long NANOS_PER_HOUR = NANOS_PER_SECOND * SECONDS_PER_HOUR;
     static final long NANOS_PER_DAY = NANOS_PER_SECOND * SECONDS_PER_DAY;
 
+    /**
+     * The minimum valid time (0h0m0s0n).
+     */
     public static final RTime MIN = ofNanoOfDay(0);
+
+    /**
+     * The maximum valid time (9h99m99s999999999n).
+     */
     public static final RTime MAX = ofNanoOfDay(NANOS_PER_DAY - 1);
 
     /**
@@ -43,14 +50,31 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
     private final byte second;
     private final int nano;
 
+    /**
+     * Obtains an instance of RTime representing the current time using the system default clock.
+     *
+     * @return the current time.
+     */
     public static RTime now() {
         return now(Clock.systemDefaultZone());
     }
 
+    /**
+     * Obtains an instance of RTime representing the current time using the system default clock in a given zone.
+     *
+     * @param zone the zone.
+     * @return the current time in the zone.
+     */
     public static RTime now(ZoneId zone) {
         return now(Clock.system(zone));
     }
 
+    /**
+     * Obtains an instance of RTime representing the time given by the provided clock.
+     *
+     * @param clock the clock.
+     * @return the time.
+     */
     public static RTime now(Clock clock) {
         Objects.requireNonNull(clock, "clock");
         final Instant now = clock.instant();
@@ -89,20 +113,50 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
         return of(hours, minutes, seconds, (int) nanoOfDay);
     }
 
+    /**
+     * Obtains an instance of RTime representing a conversion of the provided {@link LocalTime} into the decimal time.
+     *
+     * @param localTime the local time.
+     * @return the Republican (decimal) time.
+     */
     public static RTime of(LocalTime localTime) {
         long gnano = localTime.toNanoOfDay();
         long rnano = (long) (gnano / RG_SECOND_RATIO);
         return ofNanoOfDay(rnano);
     }
 
+    /**
+     * Obtains an instance of RTime from hour and minute.
+     *
+     * @param hour   the hour.
+     * @param minute the minute.
+     * @return the time.
+     */
     public static RTime of(int hour, int minute) {
         return of(hour, minute, 0, 0);
     }
 
+    /**
+     * Obtains an instance of RTime from hour, minute and second.
+     *
+     * @param hour   the hour.
+     * @param minute the minute.
+     * @param second the second.
+     * @return the time.
+     */
     public static RTime of(int hour, int minute, int second) {
         return of(hour, minute, second, 0);
     }
 
+    /**
+     * Obtains an instance of RTime from hour, minute, second and nano.
+     *
+     * @param hour   the hour.
+     * @param minute the minute.
+     * @param second the second.
+     * @param nano   the nanosecond.
+     * @return the time.
+     */
     public static RTime of(int hour, int minute, int second, int nano) {
         if (hour < 0 || hour >= HOURS_PER_DAY) {
             throw new RepublicanCalendarException("Invalid hour");
@@ -134,6 +188,12 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
         this.nano = nano;
     }
 
+    /**
+     * Return a copy of this time with the nano part set to the given value.
+     *
+     * @param nano the nano of second.
+     * @return the time.
+     */
     public RTime withNano(int nano) {
         if (this.nano == nano) {
             return this;
@@ -144,6 +204,11 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
         return new RTime(hour, minute, second, nano);
     }
 
+    /**
+     * Obtains a copy of this time rounded to the nearest second.
+     *
+     * @return the rounded time.
+     */
     public RTime roundSecond() {
         if (nano == 0) {
             return this;
