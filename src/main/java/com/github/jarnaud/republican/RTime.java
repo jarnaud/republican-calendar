@@ -1,5 +1,6 @@
 package com.github.jarnaud.republican;
 
+import com.github.jarnaud.republican.exception.RepublicanCalendarException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,11 +76,11 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
      *
      * @param nanoOfDay the Republican nanosecond of the day.
      * @return the Republican time.
-     * @throws RuntimeException if parameter is not in valid range.
+     * @throws RepublicanCalendarException if parameter is not in valid range.
      */
     public static RTime ofNanoOfDay(long nanoOfDay) {
         if (nanoOfDay < 0 || nanoOfDay >= NANOS_PER_DAY) {
-            throw new RuntimeException("Invalid nano");
+            throw new RepublicanCalendarException("Invalid nano");
         }
         int hours = (int) (nanoOfDay / NANOS_PER_HOUR);
         nanoOfDay -= hours * NANOS_PER_HOUR;
@@ -106,16 +107,16 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
 
     public static RTime of(int hour, int minute, int second, int nano) {
         if (hour < 0 || hour >= HOURS_PER_DAY) {
-            throw new RuntimeException("Invalid hour");
+            throw new RepublicanCalendarException("Invalid hour");
         }
         if (minute < 0 || minute >= MINUTES_PER_HOUR) {
-            throw new RuntimeException("Invalid minute");
+            throw new RepublicanCalendarException("Invalid minute");
         }
         if (second < 0 || second >= SECONDS_PER_MINUTE) {
-            throw new RuntimeException("Invalid second");
+            throw new RepublicanCalendarException("Invalid second");
         }
         if (nano < 0 || nano >= NANOS_PER_SECOND) {
-            throw new RuntimeException("Invalid nano");
+            throw new RepublicanCalendarException("Invalid nano");
         }
         return new RTime(hour, minute, second, nano);
     }
@@ -141,7 +142,7 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
             return this;
         }
         if (nano < 0 || nano >= NANOS_PER_SECOND) {
-            throw new RuntimeException("Invalid nano");
+            throw new RepublicanCalendarException("Invalid nano");
         }
         return new RTime(hour, minute, second, nano);
     }

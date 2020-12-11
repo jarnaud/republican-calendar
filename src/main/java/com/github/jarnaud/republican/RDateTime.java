@@ -1,5 +1,7 @@
 package com.github.jarnaud.republican;
 
+import com.github.jarnaud.republican.exception.RepublicanCalendarException;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -57,7 +59,7 @@ public class RDateTime implements Comparable<RDateTime> {
 
     public static RDateTime of(RDate rDate, RTime rTime) {
         if (rDate == null || rTime == null) {
-            throw new RuntimeException("Missing date and/or time component.");
+            throw new RepublicanCalendarException("Missing date and/or time component.");
         }
         return new RDateTime(rDate, rTime);
     }

@@ -1,5 +1,6 @@
 package com.github.jarnaud.republican;
 
+import com.github.jarnaud.republican.exception.RepublicanCalendarException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,22 +9,22 @@ public class RTimeTest {
 
     @Test
     public void testOfNanoDay_range() {
-        assertThrows(RuntimeException.class, () -> RTime.ofNanoOfDay(-1));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.ofNanoOfDay(-1));
         assertNotNull(RTime.ofNanoOfDay(0));
         assertNotNull(RTime.ofNanoOfDay(RTime.NANOS_PER_DAY - 1));
-        assertThrows(RuntimeException.class, () -> RTime.ofNanoOfDay(RTime.NANOS_PER_DAY));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.ofNanoOfDay(RTime.NANOS_PER_DAY));
     }
 
     @Test
     public void testOf_range() {
-        assertThrows(RuntimeException.class, () -> RTime.of(-1, 0, 0));
-        assertThrows(RuntimeException.class, () -> RTime.of(11, 0, 0));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, -1, 0));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, 100, 0));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, 0, -1));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, 0, 100));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, 0, 0, -1));
-        assertThrows(RuntimeException.class, () -> RTime.of(0, 0, 0, (int) RTime.NANOS_PER_SECOND));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(-1, 0, 0));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(11, 0, 0));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, -1, 0));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, 100, 0));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, 0, -1));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, 0, 100));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, 0, 0, -1));
+        assertThrows(RepublicanCalendarException.class, () -> RTime.of(0, 0, 0, (int) RTime.NANOS_PER_SECOND));
     }
 
     @Test
@@ -33,8 +34,8 @@ public class RTimeTest {
         assertEquals(RTime.of(3, 73, 83), rTime.withNano(0));
         assertEquals(RTime.of(3, 73, 83, 89), rTime.withNano(89));
         assertEquals(RTime.of(3, 73, 83, (int) (RTime.NANOS_PER_SECOND - 1)), rTime.withNano((int) (RTime.NANOS_PER_SECOND - 1)));
-        assertThrows(RuntimeException.class, () -> rTime.withNano(-1));
-        assertThrows(RuntimeException.class, () -> rTime.withNano((int) RTime.NANOS_PER_SECOND));
+        assertThrows(RepublicanCalendarException.class, () -> rTime.withNano(-1));
+        assertThrows(RepublicanCalendarException.class, () -> rTime.withNano((int) RTime.NANOS_PER_SECOND));
     }
 
     @Test

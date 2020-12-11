@@ -1,5 +1,7 @@
 package com.github.jarnaud.republican;
 
+import com.github.jarnaud.republican.exception.RepublicanCalendarException;
+
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.temporal.*;
@@ -65,7 +67,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      */
     public static RDate of(int year, int month, int day) {
         if (year < 1 || month < 1 || month > 13 || day < 1 || day > DAYS_PER_MONTH || (month == 13 && day > 6)) {
-            throw new RuntimeException("Invalid parameters for building Republican date");
+            throw new RepublicanCalendarException("Invalid parameters for building Republican date");
         }
         return new RDate(year, RMonth.values()[month - 1], day);
     }
@@ -204,7 +206,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
         LocalDate gregorianDate = new RGConverter().convert(this);
         gregorianDate = gregorianDate.plusDays(daysToAdd);
         if (gregorianDate.isBefore(FIRST_DAY)) {
-            throw new RuntimeException("Date " + gregorianDate + " is undefined in the Republican calendar.");
+            throw new RepublicanCalendarException("Date " + gregorianDate + " is undefined in the Republican calendar.");
         }
         return new GRConverter().convert(gregorianDate);
     }
