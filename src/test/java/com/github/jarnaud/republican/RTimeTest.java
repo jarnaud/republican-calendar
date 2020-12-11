@@ -99,5 +99,9 @@ public class RTimeTest {
         assertNotEquals(rt, null);
         assertNotEquals(rt, new Object());
         assertEquals(rt, RTime.of(8, 64, 80, 1500));
+        assertNotEquals(rt, RTime.of(7, 64, 80, 1500));
+        assertNotEquals(rt, RTime.of(8, 63, 80, 1500));
+        assertNotEquals(rt, RTime.of(8, 64, 81, 1500));
+        assertNotEquals(rt, RTime.of(8, 64, 80, 1501));
     }
 }

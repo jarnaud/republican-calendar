@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * A Republican local date and time.
  */
-public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
+public final class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
 
     /**
      * The date part.

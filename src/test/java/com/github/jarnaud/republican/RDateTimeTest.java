@@ -79,4 +79,20 @@ public class RDateTimeTest {
         assertTrue(rdt.compareTo(RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 84)) > 0);
         assertTrue(rdt.compareTo(RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 93)) < 0);
     }
+
+    @Test
+    public void testEquals() {
+        RDateTime rdt = RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 87, 2300);
+        assertEquals(rdt, rdt);
+        assertNotEquals(rdt, null);
+        assertNotEquals(rdt, new Object());
+        assertEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(26, RMonth.Frimaire, 21, 4, 63, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Brumaire, 21, 4, 63, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 22, 4, 63, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 21, 5, 63, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 21, 4, 64, 87, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 88, 2300));
+        assertNotEquals(rdt, RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 87, 2301));
+    }
 }
