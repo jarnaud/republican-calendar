@@ -18,8 +18,6 @@ import java.util.Objects;
  */
 public final class RTime implements Comparable<RTime>, TemporalAccessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(RTime.class);
-
     static final int HOURS_PER_DAY = 10;
     static final int MINUTES_PER_HOUR = 100;
     static final int SECONDS_PER_MINUTE = 100;
@@ -134,7 +132,6 @@ public final class RTime implements Comparable<RTime>, TemporalAccessor {
         this.minute = (byte) minute;
         this.second = (byte) second;
         this.nano = nano;
-        logger.info("Created {}", toString());
     }
 
     public RTime withNano(int nano) {

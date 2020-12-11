@@ -37,6 +37,22 @@ public class RDateTimeTest {
     }
 
     @Test
+    public void testToLocalTime() {
+        RDateTime rdt = RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 87);
+        LocalDateTime dateTime = rdt.toLocalDateTime();
+        assertEquals(1818, dateTime.getYear());
+        assertEquals(12, dateTime.getMonthValue());
+        assertEquals(12, dateTime.getDayOfMonth());
+        assertEquals(11, dateTime.getHour());
+        assertEquals(7, dateTime.getMinute());
+        assertEquals(58, dateTime.getSecond());
+
+        // Test reverse conversion.
+        RDateTime rdt2 = RDateTime.of(LocalDateTime.of(1818, 12, 12, 11, 7, 58));
+        assertEquals(rdt, rdt2.roundSSecond());
+    }
+
+    @Test
     public void testToString() {
         RDateTime rdt = RDateTime.of(27, RMonth.Frimaire, 21, 4, 63, 87);
         String s = rdt.toString();

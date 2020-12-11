@@ -3,12 +3,15 @@ package com.github.jarnaud.republican;
 import com.github.jarnaud.republican.exception.RepublicanCalendarException;
 
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalField;
+import java.time.temporal.ValueRange;
 import java.util.Objects;
 
 /**
  * A Republican local date and time.
  */
-public class RDateTime implements Comparable<RDateTime> {
+public class RDateTime implements Comparable<RDateTime>, TemporalAccessor {
 
     /**
      * The date part.
@@ -75,6 +78,24 @@ public class RDateTime implements Comparable<RDateTime> {
         this.time = time;
     }
 
+    /**
+     * Convert this Republican date and time into a Gregorian date and time.
+     *
+     * @return the date and time.
+     */
+    public LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(date.toLocalDate(), time.toLocalTime());
+    }
+
+    /**
+     * Return a new instance of this date and time with the time rounded to the nearest second.
+     *
+     * @return a Republican date and time.
+     */
+    public RDateTime roundSSecond() {
+        return of(date, time.roundSecond());
+    }
+
     public int getYear() {
         return date.getYear();
     }
@@ -134,5 +155,28 @@ public class RDateTime implements Comparable<RDateTime> {
             return cmp;
         }
         return time.compareTo(dt.time);
+    }
+
+    // Temporal accessor implementation.
+
+    @Override
+    public boolean isSupported(TemporalField field) {
+        return date.isSupported(field) || time.isSupported(field);
+    }
+
+    @Override
+    public ValueRange range(TemporalField field) {
+        if (date.isSupported(field)) {
+            return date.range(field);
+        }
+        return time.range(field);
+    }
+
+    @Override
+    public long getLong(TemporalField field) {
+        if (date.isSupported(field)) {
+            return date.getLong(field);
+        }
+        return time.getLong(field);
     }
 }
