@@ -51,6 +51,9 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * @return the Republican date.
      */
     public static RDate of(int year, RMonth month, int day) {
+        if (month == null) {
+            throw new RepublicanCalendarException("Null month");
+        }
         return of(year, month.getMonth(), day);
     }
 
@@ -66,8 +69,22 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * @return the Republican date.
      */
     public static RDate of(int year, int month, int day) {
-        if (year < 1 || month < 1 || month > 13 || day < 1 || day > DAYS_PER_MONTH || (month == 13 && day > 6)) {
-            throw new RepublicanCalendarException("Invalid parameters for building Republican date");
+        if (year < 1) {
+            throw new RepublicanCalendarException("Invalid year (must be 0 or above)");
+        }
+        if (month < 1 || month > 13) {
+            throw new RepublicanCalendarException("Invalid month (must be between 1 and 13)");
+        }
+        if (day < 1 || day > DAYS_PER_MONTH) {
+            throw new RepublicanCalendarException("Invalid day of month (must be between 1 and 30)");
+        }
+        if (month == 13) {
+            if (isSextileYear(year) && day > 6) {
+                throw new RepublicanCalendarException("Invalid special day (must be between 1 and 6 on sextile years)");
+            }
+            if (!isSextileYear(year) && day > 5) {
+                throw new RepublicanCalendarException("Invalid special day (must be between 1 and 5 on normal years)");
+            }
         }
         return new RDate(year, RMonth.values()[month - 1], day);
     }
@@ -95,7 +112,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
     /**
      * Return the Republican month for this date.
      *
-     * @return the month.
+     * @return the month, between 1 and 13.
      */
     public RMonth getMonth() {
         return month;
@@ -116,7 +133,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
     /**
      * Return the day of the month of this date.
      *
-     * @return the day of the month.
+     * @return the day of the month, between 1 and 30.
      */
     public int getDay() {
         return day;
@@ -187,10 +204,35 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * @return true if year is sextile, false otherwise.
      */
     public boolean isSextile() {
+        return isSextileYear(year);
+    }
+
+    public static boolean isSextileYear(int year) {
         if (year == 3 || year == 7 || year == 11 || year == 15) {
             return true;
         }
         return year >= 20 && year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    }
+
+    /**
+     * Return true if this date is a special day, false otherwise.
+     *
+     * @return true if this date is a special day, false otherwise.
+     */
+    public boolean isSpecialDay() {
+        return getMonth() == RMonth.Sanculottide;
+    }
+
+    /**
+     * If this is a special day, return the special day. Otherwise return null.
+     *
+     * @return the special day, or null.
+     */
+    public RSpecialDay getSpecialDay() {
+        if (!isSpecialDay()) {
+            return null;
+        }
+        return RSpecialDay.values()[getDay() - 1];
     }
 
     /**

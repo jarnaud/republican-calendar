@@ -1,9 +1,11 @@
 package com.github.jarnaud.republican;
 
+import com.github.jarnaud.republican.exception.RepublicanCalendarException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static com.github.jarnaud.republican.RSpecialDay.Revolution;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RDateTest {
@@ -11,22 +13,34 @@ public class RDateTest {
     @Test
     public void testOf1() {
         assertEquals(RMonth.Vendemiaire, RDate.of(1, RMonth.Vendemiaire, 1).getMonth());
-        assertThrows(RuntimeException.class, () -> RDate.of(1, null, 1));
-        assertThrows(RuntimeException.class, () -> RDate.of(-5, null, 1));
-        assertThrows(RuntimeException.class, () -> RDate.of(12, RMonth.Sanculottide, 7));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(1, null, 1));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(-5, null, 1));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, RMonth.Sanculottide, 7));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, 0));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, -1));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, 31));
     }
 
     @Test
     public void testOf2() {
         assertEquals(RMonth.Vendemiaire, RDate.of(1, 1, 1).getMonth());
-        assertThrows(RuntimeException.class, () -> RDate.of(1, 0, 1));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(1, 0, 1));
         assertEquals(RDate.of(58, RMonth.Floreal, 1), RDate.of(58, 8, 1));
     }
 
     @Test
     public void testOf3() {
-        assertThrows(RuntimeException.class, () -> RDate.of(LocalDate.of(1650, 1, 1)));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(LocalDate.of(1650, 1, 1)));
         // Normal cases are handled by the converter test.
+    }
+
+    @Test
+    public void testOfInvalidSpecialDay() {
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(3, RMonth.Sanculottide, 7));
+        assertNotNull(RDate.of(3, RMonth.Sanculottide, 6));
+
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(4, RMonth.Sanculottide, 6));
+        assertNotNull(RDate.of(4, RMonth.Sanculottide, 5));
     }
 
     @Test
@@ -72,6 +86,19 @@ public class RDateTest {
         assertFalse(RDate.of(200, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(300, RMonth.Floreal, 4).isSextile());
         assertTrue(RDate.of(400, RMonth.Floreal, 4).isSextile());
+    }
+
+    @Test
+    public void testIsSpecialDay() {
+        assertTrue(RDate.of(3, RMonth.Sanculottide, 6).isSpecialDay());
+        assertFalse(RDate.of(3, RMonth.Thermidor, 30).isSpecialDay());
+    }
+
+    @Test
+    public void testGetSpecialDay() {
+        assertNotNull(RDate.of(3, RMonth.Sanculottide, 6).getSpecialDay());
+        assertEquals(Revolution, RDate.of(3, RMonth.Sanculottide, 6).getSpecialDay());
+        assertNull(RDate.of(3, RMonth.Thermidor, 30).getSpecialDay());
     }
 
     @Test
