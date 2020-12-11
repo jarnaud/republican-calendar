@@ -15,7 +15,8 @@ public class RDateTest {
         assertEquals(RMonth.Vendemiaire, RDate.of(1, RMonth.Vendemiaire, 1).getMonth());
         assertThrows(RepublicanCalendarException.class, () -> RDate.of(1, null, 1));
         assertThrows(RepublicanCalendarException.class, () -> RDate.of(-5, null, 1));
-        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, RMonth.Sanculottide, 7));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 0, 7));
+        assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 14, 7));
         assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, 0));
         assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, -1));
         assertThrows(RepublicanCalendarException.class, () -> RDate.of(12, 4, 31));

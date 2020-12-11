@@ -6,7 +6,7 @@
 
     <groupId>com.github.jarnaud</groupId>
     <artifactId>republican-calendar</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <name>republican-calendar</name>
