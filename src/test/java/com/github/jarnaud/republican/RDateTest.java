@@ -49,6 +49,8 @@ public class RDateTest {
         assertTrue(d1.isBefore(d2));
         assertFalse(d2.isBefore(d1));
         assertFalse(d1.isBefore(d1));
+        assertTrue(d1.isBefore(RDate.of(7, 1, 1)));
+        assertFalse(d1.isBefore(RDate.of(5, 12, 29)));
     }
 
     @Test
@@ -58,7 +60,14 @@ public class RDateTest {
         assertTrue(RDate.of(3, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(4, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(5, RMonth.Floreal, 4).isSextile());
+        assertTrue(RDate.of(7, RMonth.Floreal, 4).isSextile());
+        assertTrue(RDate.of(11, RMonth.Floreal, 4).isSextile());
+        assertTrue(RDate.of(15, RMonth.Floreal, 4).isSextile());
         assertTrue(RDate.of(20, RMonth.Floreal, 4).isSextile());
+        assertFalse(RDate.of(21, RMonth.Floreal, 4).isSextile());
+        assertFalse(RDate.of(22, RMonth.Floreal, 4).isSextile());
+        assertFalse(RDate.of(23, RMonth.Floreal, 4).isSextile());
+        assertTrue(RDate.of(24, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(100, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(200, RMonth.Floreal, 4).isSextile());
         assertFalse(RDate.of(300, RMonth.Floreal, 4).isSextile());

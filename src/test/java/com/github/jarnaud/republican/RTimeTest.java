@@ -71,7 +71,9 @@ public class RTimeTest {
     public void testHashcode() {
         RTime rt1 = RTime.of(8, 64, 80);
         RTime rt2 = RTime.of(8, 64, 80);
+        RTime rt3 = RTime.of(8, 64, 81);
         assertEquals(rt1.hashCode(), rt2.hashCode());
+        assertNotEquals(rt1.hashCode(), rt3.hashCode());
     }
 
     @Test

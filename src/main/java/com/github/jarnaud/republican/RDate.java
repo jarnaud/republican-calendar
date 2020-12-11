@@ -15,6 +15,9 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * Dates before this date are undefined in the Republican calendar.
      */
     public static final LocalDate FIRST_DAY = LocalDate.of(1792, 9, 22);
+    public static final RDate MIN = of(FIRST_DAY);
+
+    static final int DAYS_PER_MONTH = 30;
 
     private final int year;
     private final RMonth month;
@@ -46,10 +49,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * @return the Republican date.
      */
     public static RDate of(int year, RMonth month, int day) {
-        if (year < 1 || month == null || day < 1 || day > 30 || (month == RMonth.Sanculottide && day > 6)) {
-            throw new RuntimeException("Invalid parameters for building Republican date");
-        }
-        return new RDate(year, month, day);
+        return of(year, month.getMonth(), day);
     }
 
     /**
@@ -64,7 +64,7 @@ public final class RDate implements Comparable<RDate>, TemporalAccessor {
      * @return the Republican date.
      */
     public static RDate of(int year, int month, int day) {
-        if (year < 1 || month < 1 || month > 13 || day < 1 || day > 30 || (month == 13 && day > 6)) {
+        if (year < 1 || month < 1 || month > 13 || day < 1 || day > DAYS_PER_MONTH || (month == 13 && day > 6)) {
             throw new RuntimeException("Invalid parameters for building Republican date");
         }
         return new RDate(year, RMonth.values()[month - 1], day);
